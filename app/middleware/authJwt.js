@@ -8,9 +8,10 @@ const { user: User } = db;
 const verifyToken = async (req, res, next) => {
   const token = req.headers['x-access-token'];
   if (!token) return res.status(403).send({error: true, message: 'No token provided!'});
-  const userId = await verifyTokens(token);
+  const {userId, role} = await verifyTokens(token);
   if (!userId) return res.status(401).send({message: 'Unauthorized!'});
   req.userId = userId;
+  req.role = role;
   next();
 };
 

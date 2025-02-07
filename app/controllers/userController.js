@@ -43,9 +43,10 @@ export const updateUsers = async (req, res) => {
  * @returns {Promise<void>} - A promise that resolves once the user details are retrieved and sent in the response.
  */
 export const getUserDetails = async (req, res) => {
-  const { userId } = req;
+  const { userId, role } = req;
   const userData = await USER.findOne({ where: { id: userId }, attributes: ['id', 'fullName', 'email'] });
   if (userData) {
+    userData.dataValues.role = role;
     return res.status(200).send({error: false, data: userData});
   }
   return res.status(200).send({error: true, message: 'User not found!'});

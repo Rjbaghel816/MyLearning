@@ -9,7 +9,12 @@ const checkRequiredFields = (req, res, next) => {
     fullName: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
-    phoneNumber: Joi.string().regex(/^\d{10}$/).messages({'string.pattern.base': 'Phone number must have 10 digits.'})
+    phoneNumber: Joi.string().regex(/^\d{10}$/).messages({'string.pattern.base': 'Phone number must have 10 digits.'}),
+    role: Joi.string()
+      .trim()
+      .valid(...ROLES) // Only allow valid roles
+      .invalid('admin') // Explicitly disallow 'admin'
+      .required()
   });
 
   // Validate data against schema
@@ -42,20 +47,14 @@ const checkDuplicateEmail = async (req, res, next) => {
   }
 };
 
-const checkRolesExisted = (req, res, next) => {
-  if (req.body.role && !ROLES.includes(req.body.role)) {
-    return res.status(400).send({
-      message: `Failed! Role does not exist = ${ req.body.role}`
-    });
-  }
-  
-  return next();
-};
-
 const checkRequiredFieldsForLogin = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).required()
+    password: Joi.string().min(8).required(),
+    role: Joi.string()
+      .trim()
+      .valid(...ROLES) // Only allow valid roles
+      .required()
   });
   const { error } = schema.validate(req.body);
   if (error) {
@@ -66,7 +65,6 @@ const checkRequiredFieldsForLogin = (req, res, next) => {
 
 export default {
   checkDuplicateEmail,
-  checkRolesExisted,
   checkRequiredFields,
   checkRequiredFieldsForLogin
 };

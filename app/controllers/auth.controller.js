@@ -60,11 +60,20 @@ export const signin = async (req, res) => {
           message: INVALID_PASSWORD
         });
       }
-      const accessToken = await generateToken(user.id);
-      user.getRoles().then(() => {
-        res.status(200).send({error:false, userId: user.id, fullName: user.fullName, email: user.email, phoneNumber: user.phoneNumber, address: user.address, accessToken });
+      // Get user role first
+      const roles = await user.getRoles();
+      const role = roles[0]?.name;
+      const accessToken = await generateToken(user.id, role);
+      res.status(200).send({
+        error: false,
+        userId: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        address: user.address,
+        accessToken,
+        roles: role
       });
     })
     .catch(err => res.status(500).send({error: true, message: err.message }));
 };
-

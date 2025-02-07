@@ -23,7 +23,11 @@ export default (sequelize, Sequelize) => {
     otpExpires: {
       type: Sequelize.DATE,
       allowNull: true
-    }
+    },
+    profile_pic: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
   });
 
   return User;
