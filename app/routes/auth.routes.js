@@ -6,13 +6,15 @@ const authRoutes = (app) => {
     '/api/auth/signup',
     [
       verifySignUp.checkRequiredFields,
-      verifySignUp.checkDuplicateEmail,
-      verifySignUp.checkRolesExisted
+      verifySignUp.checkDuplicateEmail
     ],
     signup
   );
 
-  app.post('/api/auth/signin', [verifySignUp.checkRequiredFieldsForLogin], signin);
+  app.post('/api/auth/signin', [
+    verifySignUp.checkRequiredFieldsForLogin
+  ],
+  signin);
 };
 
 export default authRoutes;

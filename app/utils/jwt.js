@@ -16,9 +16,9 @@ const jwtOptions = {
  * @returns {Promise<string>} - A promise that resolves to the generated token.
  * @throws {Error} - If there is an error while generating the token.
  */
-export const generateToken = (userId) => new Promise((resolve, reject) => {
+export const generateToken = (userId, role) => new Promise((resolve, reject) => {
   try {
-    const token = jwt.sign({ id: userId }, jwtOptions.secret, jwtOptions.jwtOptions);
+    const token = jwt.sign({ id: userId, role }, jwtOptions.secret, jwtOptions.jwtOptions);
     resolve(token);
   } catch (err) {
     reject(err);
@@ -33,6 +33,6 @@ export const generateToken = (userId) => new Promise((resolve, reject) => {
 export const verifyTokens = (token) => new Promise((resolve) => {
   jwt.verify(token, jwtOptions.secret, (err, decoded) => {
     if (err) resolve(false);
-    resolve(decoded.id);
+    resolve({userId: decoded.id, role: decoded.role});
   });
 });
