@@ -27,7 +27,7 @@ export default (sequelize, Sequelize) => {
     profile_pic: {
       type: Sequelize.STRING,
       allowNull: true
-    },
+    }
   });
 
   return User;

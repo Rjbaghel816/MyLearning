@@ -7,11 +7,15 @@ const { user: User } = db;
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers['x-access-token'];
-  if (!token) return res.status(403).send({error: true, message: 'No token provided!'});
-  const {userId, role} = await verifyTokens(token);
-  if (!userId) return res.status(401).send({message: 'Unauthorized!'});
-  req.userId = userId;
-  req.role = role;
+  console.log('Token:', token);
+
+  if (!token) return res.status(403).send({ error: true, message: 'No token provided!' });
+
+  const { userId, role } = await verifyTokens(token);
+
+  if (!userId) return res.status(401).send({ message: 'Unauthorized!' });
+
+  req.user = { id: userId, role }; // Fix: req.user set karein
   next();
 };
 
@@ -25,7 +29,6 @@ const isAdmin = (req, res, next) => {
         }
       }
       res.status(403).send({ error: true, message: 'Unauthorized, Please Check your Token'});
-      
     });
   });
 };
@@ -34,5 +37,4 @@ const authJwt = {
   verifyToken,
   isAdmin
 };
-
 export default authJwt;

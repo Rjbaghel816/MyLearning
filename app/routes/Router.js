@@ -1,5 +1,6 @@
 import authRoutes from './auth.routes.js';
 import userRoutes from './user.routes.js';
+import userRoute from './userprofileroute.js';
 
 const applyRoutes = (app) => {
   // simple route
@@ -13,6 +14,8 @@ const applyRoutes = (app) => {
   
 
   // routes
+
+  userRoute(app);
   authRoutes(app);
   userRoutes(app);
 };
