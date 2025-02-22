@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4f1010b9-ed47-438c-bb32-922c849807b2",
+		"_postman_id": "c58ad715-ddc9-487a-9bdf-ec6c4ca19737",
 		"name": "Loh-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21993237",
-		"_collection_link": "https://vitabletech.postman.co/workspace/vitabletech-Workspace~f35a41a5-be1f-4f28-8e90-39891dd609fd/collection/21993237-4f1010b9-ed47-438c-bb32-922c849807b2?action=share&source=collection_link&creator=21993237"
+		"_exporter_id": "41719270"
 	},
 	"item": [
 		{
@@ -205,7 +204,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"msrajawat298@gmail.com\"\n}",
+							"raw": "{\n  \"firstName\": \"raj\",\n  \"lastName\": \"Doe\",\n  \"country\": \"USA\",\n  \"state\": \"California\",\n  \"city\": \"Los Angeles\",\n  \"lookingFor\": \"Software Engineer\",\n  \"yearsOfExperience\": 5,\n  \"profileHeadline\": \"Experienced Software Engineer\",\n  \"shortDescription\": \"I have 5 years of experience in software development.\",\n  \"phoneNumber\": \"1234567890\",\n  \"skills\": [\"JavaScript\", \"Node.js\", \"React\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -213,13 +212,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/user",
+							"raw": "{{url}}/api/user/profile",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"user"
+								"user",
+								"profile"
 							]
 						}
 					},
@@ -348,6 +348,13 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
